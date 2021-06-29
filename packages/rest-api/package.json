@@ -1,6 +1,6 @@
 {
   "name": "@yaks/rest-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "small helper collection to help with a rest api",
   "keywords": [
     "api",
