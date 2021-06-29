@@ -1,6 +1,6 @@
 {
   "name": "@yaks/react-input",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "connect data / handler to inputs",
   "keywords": [
     "react",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@yaks/rest-api": "^0.0.4",
+    "@yaks/rest-api": "^0.0.5",
     "react": ">= 16.0.0"
   },
   "devDependencies": {
