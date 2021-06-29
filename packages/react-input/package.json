@@ -1,6 +1,6 @@
 {
   "name": "@yaks/react-input",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "connect data / handler to inputs",
   "keywords": [
     "react",
@@ -20,10 +20,11 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@yaks/rest-api": "^0.0.4",
+    "@yaks/rest-api": "^0.0.5",
     "react": ">= 16.0.0"
   },
   "devDependencies": {
@@ -33,5 +34,5 @@
     "tsc": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "c4969bc4d38fc749a91adecdef5486d4e2df4d85"
+  "gitHead": "651d8d5841a30f97708258a70c3f43c459b491d9"
 }

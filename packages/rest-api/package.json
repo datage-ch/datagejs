@@ -1,6 +1,6 @@
 {
   "name": "@yaks/rest-api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "small helper collection to help with a rest api",
   "keywords": [
     "api",
@@ -21,11 +21,12 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "tsc": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "c4969bc4d38fc749a91adecdef5486d4e2df4d85"
+  "gitHead": "651d8d5841a30f97708258a70c3f43c459b491d9"
 }

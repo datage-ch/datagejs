@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
+  "repository": "https://github.com/philiplehmann/yaks",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^15.12.5",
