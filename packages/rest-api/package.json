@@ -10,6 +10,7 @@
   ],
   "author": "Philip Lehmann <philiplehmann@gmail.com>",
   "homepage": "https://philiplehmann.ch",
+  "repository": "github:datage-ch/datagejs",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

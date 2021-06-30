@@ -1,7 +1,7 @@
 {
   "private": true,
   "license": "MIT",
-  "repository": "https://github.com/philiplehmann/yaks",
+  "repository": "github:datage-ch/datagejs",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^15.12.5",
