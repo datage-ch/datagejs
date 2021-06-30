@@ -1,6 +1,6 @@
 {
   "name": "@datage/rest-api",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "small helper collection to help with a rest api",
   "keywords": [
     "api",
