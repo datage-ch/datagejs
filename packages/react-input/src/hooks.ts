@@ -1,5 +1,5 @@
 import { useCallback, ChangeEvent } from 'react'
-import { setIn, getIn } from '@yaks/rest-api'
+import { setIn, getIn } from '@datage/rest-api'
 
 export type UpdateDataType = <T>(data: T) => T
 

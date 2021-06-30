@@ -1,5 +1,5 @@
 {
-  "name": "@yaks/rest-api",
+  "name": "@datage/rest-api",
   "version": "0.0.5",
   "description": "small helper collection to help with a rest api",
   "keywords": [
@@ -21,12 +21,11 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "scripts": {
     "tsc": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "651d8d5841a30f97708258a70c3f43c459b491d9"
+  "gitHead": "f0ceece0d77762a13be2a660abbb5b5f6772a471"
 }
