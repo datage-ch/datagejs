@@ -1,6 +1,6 @@
 {
   "name": "@datage/react-input",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "connect data / handler to inputs",
   "keywords": [
     "react",
@@ -24,7 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@datage/rest-api": "^0.0.7"
+    "@datage/rest-api": "^0.0.8"
   },
   "peerDependencies": {
     "react": ">= 16.0.0"
