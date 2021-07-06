@@ -7,13 +7,16 @@ export const useInputProps = <T>(data: T, updateData: UpdateDataType) => {
   return useCallback(
     (pathString: string) => {
       const path = pathString.split('.')
-      const value = String(getIn(data, path))
+      const orgValue = getIn(data, path)
+      const value = String(orgValue == null ? '' : orgValue)
       const name = pathString
       const onChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-          let newValue: boolean | string | null = null
+          let newValue: boolean | string | number | null = null
           if (event.target.type === 'checkbox') {
             newValue = event.target.checked
+          } else if (event.target.type === 'number') {
+            newValue = Number(event.target.value)
           } else {
             newValue = event.target.value
           }
