@@ -11,11 +11,21 @@ export const useInputProps = <T>(data: T, updateData: UpdateDataType) => {
       const value = String(orgValue == null ? '' : orgValue)
       const name = pathString
       const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let newValue: boolean | string | number | null = null
+        let newValue: boolean | string | number | Blob | Blob[] | null = null
         if (event.target.type === 'checkbox') {
           newValue = event.target.checked
         } else if (event.target.type === 'number') {
           newValue = Number(event.target.value)
+        } else if (event.target.type === 'file') {
+          if (event.target.multiple) {
+            const files = []
+            for (var i = 0; i < event.target.files.length; i++) {
+              files.push(event.target.files.item(i))
+            }
+            newValue = files
+          } else {
+            newValue = event.target.files.item(0)
+          }
         } else {
           newValue = event.target.value
         }
