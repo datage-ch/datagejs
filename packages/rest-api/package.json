@@ -28,5 +28,8 @@
     "tsc": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "f0ceece0d77762a13be2a660abbb5b5f6772a471"
+  "gitHead": "f0ceece0d77762a13be2a660abbb5b5f6772a471",
+  "dependencies": {
+    "@datage/react-input": "^0.0.9"
+  }
 }

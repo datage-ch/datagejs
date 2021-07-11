@@ -10,29 +10,26 @@ export const useInputProps = <T>(data: T, updateData: UpdateDataType) => {
       const orgValue = getIn(data, path)
       const value = String(orgValue == null ? '' : orgValue)
       const name = pathString
-      const onChange = useCallback(
-        (event: ChangeEvent<HTMLInputElement>) => {
-          let newValue: boolean | string | number | null = null
-          if (event.target.type === 'checkbox') {
-            newValue = event.target.checked
-          } else if (event.target.type === 'number') {
-            newValue = Number(event.target.value)
-          } else {
-            newValue = event.target.value
-          }
+      const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+        let newValue: boolean | string | number | null = null
+        if (event.target.type === 'checkbox') {
+          newValue = event.target.checked
+        } else if (event.target.type === 'number') {
+          newValue = Number(event.target.value)
+        } else {
+          newValue = event.target.value
+        }
 
-          if (newValue === 'true') {
-            newValue = true
-          } else if (newValue === 'false') {
-            newValue = false
-          }
+        if (newValue === 'true') {
+          newValue = true
+        } else if (newValue === 'false') {
+          newValue = false
+        }
 
-          updateData((oldData: T) => {
-            return setIn(oldData, path, newValue)
-          })
-        },
-        [data, updateData, pathString]
-      )
+        updateData((oldData: T) => {
+          return setIn(oldData, path, newValue)
+        })
+      }
       return { path, value, name, onChange }
     },
     [data, updateData]
