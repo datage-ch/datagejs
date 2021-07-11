@@ -1,6 +1,6 @@
 {
   "name": "datage",
-  "private": true,
+  "private": false,
   "license": "MIT",
   "repository": "github:datage-ch/datagejs",
   "devDependencies": {
@@ -22,7 +22,7 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx ."
   },
   "workspaces": [
-    "packages/react-input",
-    "packages/rest-api"
-  ]
+    "packages/*"
+  ],
+  "version": "0.0.10"
 }
