@@ -1,9 +1,7 @@
-import { useCallback, ChangeEvent } from 'react'
+import { useCallback, ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { setIn, getIn } from '@datage/rest-api'
 
-export type UpdateDataType = <T>(data: T) => T
-
-export const useInputProps = <T>(data: T, updateData: UpdateDataType) => {
+export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>) => {
   return useCallback(
     (pathString: string) => {
       const path = pathString.split('.')
@@ -36,9 +34,10 @@ export const useInputProps = <T>(data: T, updateData: UpdateDataType) => {
           newValue = false
         }
 
-        updateData((oldData: T) => {
+        const updater: SetStateAction<any> = (oldData: any) => {
           return setIn(oldData, path, newValue)
-        })
+        }
+        updateData(updater)
       }
       return { path, value, name, onChange }
     },
