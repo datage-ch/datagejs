@@ -1,6 +1,6 @@
 {
   "name": "@datage/react-input",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "connect data / handler to inputs",
   "keywords": [
     "react",
@@ -9,7 +9,10 @@
   ],
   "author": "Philip Lehmann <philiplehmann@gmail.com>",
   "homepage": "https://philiplehmann.ch",
-  "repository": "github:datage-ch/datagejs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datage-ch/datagejs.git"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

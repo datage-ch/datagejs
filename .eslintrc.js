@@ -14,6 +14,7 @@ module.exports = {
       jsx: true,
     },
   },
+  ignorePatterns: ['**/lib/*'],
   settings: {
     react: {
       version: '17',
@@ -21,5 +22,6 @@ module.exports = {
   },
   rules: {
     'no-console': 'error',
+    'react/prop-types': 'off',
   },
 }

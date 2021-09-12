@@ -1,13 +1,7 @@
 {
-  "name": "@datage/rest-api",
-  "version": "0.0.12",
-  "description": "small helper collection to help with a rest api",
-  "keywords": [
-    "api",
-    "rest",
-    "snakecase",
-    "camelcase"
-  ],
+  "name": "@datage/form-material",
+  "version": "0.0.1",
+  "description": "form fields done in material-ui",
   "author": "Philip Lehmann <philiplehmann@gmail.com>",
   "homepage": "https://philiplehmann.ch",
   "repository": {
@@ -27,10 +21,21 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "@datage/form-validation": "^0.0.1",
+    "@material-ui/core": "^4.12.3"
+  },
+  "peerDependencies": {
+    "react": ">= 16.0.0"
+  },
+  "devDependencies": {
+    "@types/react": ">= 16.0.0"
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "f0ceece0d77762a13be2a660abbb5b5f6772a471",
-  "dependencies": {}
+  "bugs": {
+    "url": "https://github.com/datage-ch/datagejs/issues"
+  }
 }

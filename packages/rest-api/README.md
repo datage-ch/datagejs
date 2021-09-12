@@ -1,4 +1,4 @@
-# `rest-api`
+# `@datage/rest-api`
 
 ## Usage
 

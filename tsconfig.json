@@ -4,9 +4,11 @@
     "declaration": true,
     "noImplicitAny": true,
     "removeComments": false,
+    "jsx": "react",
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "target": "es6",
     "sourceMap": true,
     "lib": [
