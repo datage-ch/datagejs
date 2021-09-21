@@ -1,7 +1,15 @@
 import { useCallback, ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { setIn, getIn } from '@datage/rest-api'
 
-export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>) => {
+export type InputPropOutputType = {
+  path: string[]
+  value: string
+  name: string
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+}
+export type InputPropType = (pathString: string) => InputPropOutputType
+
+export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>): InputPropType => {
   return useCallback(
     (pathString: string) => {
       const path = pathString.split('.')
