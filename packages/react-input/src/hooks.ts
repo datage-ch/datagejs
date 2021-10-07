@@ -2,21 +2,44 @@ import { useCallback, ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { setIn, getIn } from '@datage/rest-api'
 
 type HTMLInputElements = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+export type GetterSetterValue =
+  | string
+  | number
+  | boolean
+  | Date
+  | Record<string, unknown>
+  | string[]
+  | number[]
+  | Date[]
+  | Record<string, unknown>[]
+  | File
+  | File[]
 
-export type InputPropsOutputType = {
+export type GetterSetterOutput = string | number | boolean | File | File[]
+
+export interface InputPropsOptionType {
+  valueGetterHandler?: (value: GetterSetterValue) => string
+  valueSetterHandler?: (value: GetterSetterOutput) => GetterSetterValue
+}
+
+export interface InputPropsOutputType {
   path: string[]
   value: string
   name: string
   onChange: <EventElement extends HTMLInputElements>(event: ChangeEvent<EventElement>) => void
 }
-export type InputPropsType = (pathString: string) => InputPropsOutputType
+export type InputPropsType = (pathString: string, options: InputPropsOptionType) => InputPropsOutputType
 
 export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>): InputPropsType => {
   return useCallback(
-    <EventElement extends HTMLInputElements>(pathString: string) => {
+    <EventElement extends HTMLInputElements>(pathString: string, options: InputPropsOptionType) => {
+      const { valueGetterHandler, valueSetterHandler } = options
       const path = pathString.split('.')
-      const orgValue = getIn(data, path)
-      const value = String(orgValue == null ? '' : orgValue)
+      const orgValue = getIn(data, path) as GetterSetterValue
+      const value =
+        typeof valueGetterHandler === 'function'
+          ? valueGetterHandler(orgValue)
+          : String(orgValue == null ? '' : orgValue)
       const name = pathString
       const onChange = (event: ChangeEvent<EventElement>) => {
         let newValue: boolean | string | number | File | File[] | null = null
@@ -52,7 +75,11 @@ export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>
         }
 
         const updater: SetStateAction<any> = (oldData: any) => {
-          return setIn(oldData, path, newValue)
+          return setIn(
+            oldData,
+            path,
+            typeof valueSetterHandler === 'function' ? valueSetterHandler(newValue) : newValue
+          )
         }
         updateData(updater)
       }
