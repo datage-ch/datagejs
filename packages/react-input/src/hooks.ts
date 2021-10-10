@@ -32,8 +32,8 @@ export type InputPropsType = (pathString: string, options: InputPropsOptionType)
 
 export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>): InputPropsType => {
   return useCallback(
-    <EventElement extends HTMLInputElements>(pathString: string, options: InputPropsOptionType = {}) => {
-      const { valueGetterHandler, valueSetterHandler } = options
+    <EventElement extends HTMLInputElements>(pathString: string, options?: InputPropsOptionType) => {
+      const { valueGetterHandler, valueSetterHandler } = options || {}
       const path = pathString.split('.')
       const orgValue = getIn(data, path) as GetterSetterValue
       const value =
