@@ -1,6 +1,6 @@
 {
   "name": "@datage/react-input",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "connect data / handler to inputs",
   "keywords": [
     "react",

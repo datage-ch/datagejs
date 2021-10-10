@@ -1,6 +1,6 @@
 {
   "name": "@datage/form-validation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "validate fields in react",
   "author": "Philip Lehmann <philiplehmann@gmail.com>",
   "homepage": "https://philiplehmann.ch",
