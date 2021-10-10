@@ -1,5 +1,5 @@
 import { useCallback, ChangeEvent, Dispatch, SetStateAction } from 'react'
-import { setIn, getIn } from '@datage/rest-api'
+import { setIn, getIn, splitPath } from '@datage/rest-api'
 
 type HTMLInputElements = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
 export type GetterSetterValue =
@@ -23,7 +23,7 @@ export interface InputPropsOptionType {
 }
 
 export interface InputPropsOutputType {
-  path: string[]
+  path: Array<string | number>
   value: string
   name: string
   onChange: <EventElement extends HTMLInputElements>(event: ChangeEvent<EventElement>) => void
@@ -34,7 +34,7 @@ export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>
   return useCallback(
     <EventElement extends HTMLInputElements>(pathString: string, options?: InputPropsOptionType) => {
       const { valueGetterHandler, valueSetterHandler } = options || {}
-      const path = pathString.split('.')
+      const path = splitPath(pathString)
       const orgValue = getIn(data, path) as GetterSetterValue
       const value =
         typeof valueGetterHandler === 'function'

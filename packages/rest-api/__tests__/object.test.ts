@@ -1,4 +1,4 @@
-import { setIn, getIn } from '../src'
+import { setIn, getIn, splitPath } from '../src'
 
 describe('rest-api', () => {
   describe('object', () => {
@@ -97,6 +97,18 @@ describe('rest-api', () => {
         expect(result).toEqual({
           x: [{ a: 1, b: 2 }, { a: 1, b: 2, c: 3, d: 4 }, { a: 1, b: 2 }, { g: 10 }, { a: 1, b: 2 }],
         })
+      })
+    })
+
+    describe('splitPath', () => {
+      test('check path split results', () => {
+        expect(splitPath('a')).toEqual(['a'])
+        expect(splitPath('a.b')).toEqual(['a', 'b'])
+        expect(splitPath('a.asd2342sdf.asdf')).toEqual(['a', 'asd2342sdf', 'asdf'])
+        expect(splitPath('a.123.b')).toEqual(['a', 123, 'b'])
+        expect(splitPath('a.0.b')).toEqual(['a', 0, 'b'])
+        expect(splitPath('adfs.0.1.2.3.4')).toEqual(['adfs', 0, 1, 2, 3, 4])
+        expect(splitPath('1')).toEqual([1])
       })
     })
   })
