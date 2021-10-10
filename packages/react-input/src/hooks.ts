@@ -28,7 +28,7 @@ export interface InputPropsOutputType {
   name: string
   onChange: <EventElement extends HTMLInputElements>(event: ChangeEvent<EventElement>) => void
 }
-export type InputPropsType = (pathString: string, options: InputPropsOptionType) => InputPropsOutputType
+export type InputPropsType = (pathString: string, options?: InputPropsOptionType) => InputPropsOutputType
 
 export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>): InputPropsType => {
   return useCallback(

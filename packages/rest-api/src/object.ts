@@ -45,16 +45,32 @@ export const getIn = <T>(object: T, path: Array<string | number>) => {
 }
 
 export const setIn = <T extends Record<string, any>>(object: T, path: Array<string | number>, value: any): T => {
-  path = path.concat()
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
 
-  let field = path.pop()
-  let child = Object.freeze({ ...getIn(object, path), [field]: value })
+  const pathCopy = Array.from(path)
+  let field = pathCopy.pop()
+  let fetchedPath = getIn(object, pathCopy)
+  let child
 
-  while (path.length > 0) {
-    field = path.pop()
-    child = Object.freeze({ ...getIn(object, path), [field]: child })
+  if (typeof field === 'number' && Array.isArray(fetchedPath)) {
+    child = Array.from(fetchedPath)
+    child[field] = value
+  } else {
+    child = Object.freeze({ ...fetchedPath, [field]: value })
+  }
+
+  while (pathCopy.length > 0) {
+    field = pathCopy.pop()
+    fetchedPath = getIn(object, pathCopy)
+
+    if (typeof field === 'number' && Array.isArray(fetchedPath)) {
+      let tmp = Array.from(fetchedPath)
+      tmp[field] = child
+      child = tmp
+    } else {
+      child = Object.freeze({ ...fetchedPath, [field]: child })
+    }
   }
 
   return child as T
