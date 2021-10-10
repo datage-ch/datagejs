@@ -44,7 +44,7 @@ export const getIn = <T>(object: T, path: Array<string | number>) => {
   }, object)
 }
 
-export const setIn = <T>(object: T, path: Array<string | number>, value: any) => {
+export const setIn = <T extends Record<string, any>>(object: T, path: Array<string | number>, value: any): T => {
   path = path.concat()
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
@@ -57,5 +57,5 @@ export const setIn = <T>(object: T, path: Array<string | number>, value: any) =>
     child = Object.freeze({ ...getIn(object, path), [field]: child })
   }
 
-  return child
+  return child as T
 }
