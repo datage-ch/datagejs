@@ -29,11 +29,19 @@ export interface InputPropsOutputType {
   onChange: <EventElement extends HTMLInputElements>(event: ChangeEvent<EventElement>) => void
 }
 export type InputPropsType = (pathString: string, options?: InputPropsOptionType) => InputPropsOutputType
+export interface InputPropsGlobalOptionType {
+  setIn?: typeof setIn
+}
 
-export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>>): InputPropsType => {
+export const useInputProps = <T>(
+  data: T,
+  updateData: Dispatch<SetStateAction<T>>,
+  globalOptions?: InputPropsGlobalOptionType
+): InputPropsType => {
   return useCallback(
     <EventElement extends HTMLInputElements>(pathString: string, options?: InputPropsOptionType) => {
       const { valueGetterHandler, valueSetterHandler } = options || {}
+      const { setIn: wrappedSetIn } = globalOptions || { setIn }
       const path = splitPath(pathString)
       const orgValue = getIn(data, path) as GetterSetterValue
       const value =
@@ -75,7 +83,7 @@ export const useInputProps = <T>(data: T, updateData: Dispatch<SetStateAction<T>
         }
 
         const updater: SetStateAction<any> = (oldData: any) => {
-          return setIn(
+          return wrappedSetIn(
             oldData,
             path,
             typeof valueSetterHandler === 'function' ? valueSetterHandler(newValue) : newValue
