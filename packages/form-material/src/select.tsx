@@ -1,21 +1,25 @@
 import React, { useRef, ComponentProps, ReactNode, FC } from 'react'
-import { Select as MaterialSelect } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { useInputValidation } from '@datage/form-validation'
 
-interface SelectProps extends ComponentProps<typeof MaterialSelect> {
+export type SelectProps = ComponentProps<typeof TextField> & {
   options: { value: number | string; label?: ReactNode }[]
 }
 
 export const Select: FC<SelectProps> = (props) => {
   const { options, ...selectProps } = props
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const { valid, showErrors, errorMessage } = useInputValidation(inputRef)
   return (
     <>
-      <MaterialSelect
-        ref={inputRef}
+      <TextField
+        select
+        inputRef={inputRef}
+        SelectProps={{
+          native: true,
+        }}
         variant="outlined"
-        margin="none"
+        margin="normal"
         error={!!(showErrors && !valid)}
         fullWidth
         {...selectProps}
@@ -27,7 +31,7 @@ export const Select: FC<SelectProps> = (props) => {
             </option>
           )
         })}
-      </MaterialSelect>
+      </TextField>
       {showErrors && !valid && errorMessage}
     </>
   )

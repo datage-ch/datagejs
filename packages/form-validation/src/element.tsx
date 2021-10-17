@@ -16,7 +16,9 @@ export type UseInputValidationReturn = {
   showErrors: boolean
 }
 
-export const useInputValidation = (inputRef: MutableRefObject<null | HTMLInputElement>): UseInputValidationReturn => {
+export const useInputValidation = (
+  inputRef: MutableRefObject<null | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+): UseInputValidationReturn => {
   const [valid, setValid] = useState(true)
   const { errors, setErrors, showErrors } = useContext(ValidationContext)
   const eventListener = useCallback(
@@ -36,7 +38,7 @@ export const useInputValidation = (inputRef: MutableRefObject<null | HTMLInputEl
     },
     [inputRef.current]
   )
-  const previousRef = usePrevious(inputRef.current) as HTMLInputElement | null
+  const previousRef = usePrevious(inputRef.current) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
   const previousEventListener = usePrevious(eventListener) as typeof eventListener
   useEffect(() => {
     if (previousRef && previousEventListener && eventListener !== previousEventListener) {
