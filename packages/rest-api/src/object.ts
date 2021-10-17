@@ -33,15 +33,18 @@ export const objectKeysToSnakeCase = <T>(object: T) => {
   return mapObjectKeys(object, toSnakeCase)
 }
 
-export const getIn = <T>(object: T, path: Array<string | number>) => {
-  if (path.length === 0) return object
+export const getIn = <OutputType, InputType extends Record<string, any>>(
+  object: InputType,
+  path: Array<string | number>
+): OutputType => {
+  if (path.length === 0) return object as OutputType
   return path.reduce<Record<string, any>>((result, entry) => {
     if (result == undefined) return undefined
     if (Array.isArray(result) && String(Number(entry)) === entry) {
       return result[Number(entry)]
     }
     return result[entry]
-  }, object)
+  }, object) as OutputType
 }
 
 export const setIn = <T extends Record<string, any>>(object: T, path: Array<string | number>, value: any): T => {
@@ -50,13 +53,13 @@ export const setIn = <T extends Record<string, any>>(object: T, path: Array<stri
 
   const pathCopy = Array.from(path)
   let field = pathCopy.pop()
-  let fetchedPath = getIn(object, pathCopy)
+  let fetchedPath = getIn(object, pathCopy) as any
   let child
 
   if (typeof field === 'number' && Array.isArray(fetchedPath)) {
     child = Array.from(fetchedPath)
     child[field] = value
-  } else {
+  } else if (isObject(fetchedPath)) {
     child = Object.freeze({ ...fetchedPath, [field]: value })
   }
 
@@ -68,7 +71,7 @@ export const setIn = <T extends Record<string, any>>(object: T, path: Array<stri
       let tmp = Array.from(fetchedPath)
       tmp[field] = child
       child = tmp
-    } else {
+    } else if (isObject(fetchedPath)) {
       child = Object.freeze({ ...fetchedPath, [field]: child })
     }
   }

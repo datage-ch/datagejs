@@ -1,5 +1,6 @@
-import { useCallback, ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { useCallback } from 'react'
 import { setIn, getIn, splitPath } from '@datage/rest-api'
+import type { ReactNode, ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 type HTMLInputElements = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
 export type GetterSetterValue =
@@ -22,11 +23,17 @@ export interface InputPropsOptionType {
   valueSetterHandler?: (value: GetterSetterOutput) => GetterSetterValue
 }
 
-export interface InputPropsOutputType {
+export type InputEventType = <EventElement extends HTMLInputElements>(event: ChangeEvent<EventElement>) => void
+export type SelectEventType = (
+  event: ChangeEvent<{ name?: string | undefined; value: unknown }>,
+  child: ReactNode
+) => void
+
+export interface InputPropsOutputType<OnChangeType = InputEventType> {
   path: Array<string | number>
   value: string
   name: string
-  onChange: <EventElement extends HTMLInputElements>(event: ChangeEvent<EventElement>) => void
+  onChange: OnChangeType
 }
 export type InputPropsType = (pathString: string, options?: InputPropsOptionType) => InputPropsOutputType
 export interface InputPropsGlobalOptionType {

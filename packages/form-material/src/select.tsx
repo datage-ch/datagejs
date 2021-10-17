@@ -1,8 +1,8 @@
 import React, { useRef, ComponentProps, ReactNode, FC } from 'react'
-import { NativeSelect } from '@material-ui/core'
+import { Select as MaterialSelect } from '@material-ui/core'
 import { useInputValidation } from '@datage/form-validation'
 
-interface SelectProps extends ComponentProps<typeof NativeSelect> {
+interface SelectProps extends ComponentProps<typeof MaterialSelect> {
   options: { value: number | string; label?: ReactNode }[]
 }
 
@@ -12,7 +12,7 @@ export const Select: FC<SelectProps> = (props) => {
   const { valid, showErrors, errorMessage } = useInputValidation(inputRef)
   return (
     <>
-      <NativeSelect
+      <MaterialSelect
         ref={inputRef}
         variant="outlined"
         margin="none"
@@ -27,7 +27,7 @@ export const Select: FC<SelectProps> = (props) => {
             </option>
           )
         })}
-      </NativeSelect>
+      </MaterialSelect>
       {showErrors && !valid && errorMessage}
     </>
   )
