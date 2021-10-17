@@ -4,10 +4,12 @@ import { useInputValidation } from '@datage/form-validation'
 
 export type SelectProps = ComponentProps<typeof TextField> & {
   options: { value: number | string; label?: ReactNode }[]
+  hasEmpty?: boolean
+  hasEmptyLabel?: string
 }
 
 export const Select: FC<SelectProps> = (props) => {
-  const { options, ...selectProps } = props
+  const { options, hasEmpty, hasEmptyLabel, ...selectProps } = props
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { valid, showErrors, errorMessage } = useInputValidation(inputRef)
   return (
@@ -24,6 +26,7 @@ export const Select: FC<SelectProps> = (props) => {
         fullWidth
         {...selectProps}
       >
+        {hasEmpty && <option>{hasEmptyLabel}</option>}
         {options.map((option, index) => {
           return (
             <option value={option.value} key={option.value || `index-${index}`}>
