@@ -25,7 +25,7 @@
   "scripts": {
     "lerna:publish": "lerna run tsc && lerna publish",
     "tsc:watch": "lerna run tsc -- --watch",
-    "tsc": "lerna run tsc -- --noEmit",
+    "tsc": "lerna run tsc -- -b",
     "lint": "eslint --ext .ts,.tsx .",
     "lint:fix": "eslint --fix --ext .ts,.tsx .",
     "test": "jest"
