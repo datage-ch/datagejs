@@ -45,6 +45,28 @@ describe('rest-api', () => {
         ])
       })
 
+      test('set empty object', () => {
+        const obj = {}
+        const result = setIn(obj, ['a', 'b'], 2)
+        expect(result).toEqual({
+          a: {
+            b: 2,
+          },
+        })
+      })
+
+      test('set empty array', () => {
+        const obj = {}
+        const result = setIn(obj, ['a', 0, 'b'], 2)
+        expect(result).toEqual({
+          a: [
+            {
+              b: 2,
+            },
+          ],
+        })
+      })
+
       test('more complex structure', () => {
         const obj = {
           x: [

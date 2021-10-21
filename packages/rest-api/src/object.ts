@@ -47,6 +47,17 @@ export const getIn = <OutputType, InputType extends Record<string, any>>(
   }, object) as OutputType
 }
 
+const processChild = (field: string | number, fetchedPath: any, value: any) => {
+  let child
+  if (typeof field === 'number' && (Array.isArray(fetchedPath) || fetchedPath == undefined)) {
+    child = Array.from(fetchedPath || [])
+    child[field] = value
+  } else {
+    child = Object.freeze({ ...(fetchedPath || {}), [field]: value })
+  }
+  return child
+}
+
 export const setIn = <T extends Record<string, any>>(object: T, path: Array<string | number>, value: any): T => {
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
@@ -56,24 +67,13 @@ export const setIn = <T extends Record<string, any>>(object: T, path: Array<stri
   let fetchedPath = getIn(object, pathCopy) as any
   let child
 
-  if (typeof field === 'number' && Array.isArray(fetchedPath)) {
-    child = Array.from(fetchedPath)
-    child[field] = value
-  } else if (isObject(fetchedPath)) {
-    child = Object.freeze({ ...fetchedPath, [field]: value })
-  }
+  child = processChild(field, fetchedPath, value)
 
   while (pathCopy.length > 0) {
     field = pathCopy.pop()
     fetchedPath = getIn(object, pathCopy)
 
-    if (typeof field === 'number' && Array.isArray(fetchedPath)) {
-      let tmp = Array.from(fetchedPath)
-      tmp[field] = child
-      child = tmp
-    } else if (isObject(fetchedPath)) {
-      child = Object.freeze({ ...fetchedPath, [field]: child })
-    }
+    child = processChild(field, fetchedPath, child)
   }
 
   return child as T
