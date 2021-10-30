@@ -1,0 +1,32 @@
+{
+  "name": "@datage/model-adapter-base",
+  "version": "0.0.1",
+  "description": "orm model adapter base implementation",
+  "keywords": [
+    "model"
+  ],
+  "author": "Philip Lehmann <philiplehmann@gmail.com>",
+  "homepage": "https://philiplehmann.ch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datage-ch/datagejs.git"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "gitHead": "f0ceece0d77762a13be2a660abbb5b5f6772a471"
+}
