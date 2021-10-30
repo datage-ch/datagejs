@@ -38,7 +38,13 @@ export interface InputPropsOutputType<OnChangeType = InputEventType> {
 export type InputPropsType = (pathString: string, options?: InputPropsOptionType) => InputPropsOutputType
 export interface InputPropsGlobalOptionType {
   setIn?: typeof setIn
+  getIn?: typeof getIn
 }
+
+const staticOptions = Object.freeze({
+  setIn,
+  getIn,
+})
 
 export const useInputProps = <T>(
   data: T,
@@ -47,10 +53,12 @@ export const useInputProps = <T>(
 ): InputPropsType => {
   return useCallback(
     <EventElement extends HTMLInputElements>(pathString: string, options?: InputPropsOptionType) => {
+      const mergedOptions = { ...staticOptions, ...globalOptions }
       const { valueGetterHandler, valueSetterHandler } = options || {}
-      const { setIn: wrappedSetIn } = globalOptions || { setIn }
+      const { setIn: wrappedSetIn } = mergedOptions
+      const { getIn: wrappedGetIn } = mergedOptions
       const path = splitPath(pathString)
-      const orgValue = getIn(data, path) as GetterSetterValue
+      const orgValue = wrappedGetIn(data, path) as GetterSetterValue
       const value =
         typeof valueGetterHandler === 'function'
           ? valueGetterHandler(orgValue)
