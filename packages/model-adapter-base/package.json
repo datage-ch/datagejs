@@ -1,6 +1,6 @@
 {
   "name": "@datage/model-adapter-base",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "orm model adapter base implementation",
   "keywords": [
     "model"

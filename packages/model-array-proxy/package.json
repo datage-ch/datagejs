@@ -1,6 +1,6 @@
 {
   "name": "@datage/model-array-proxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "orm model array proxy",
   "keywords": [
     "model"
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@datage/model": "^0.0.1"
+    "@datage/model": "^0.0.2"
   },
   "scripts": {
     "tsc": "tsc",

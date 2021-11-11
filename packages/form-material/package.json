@@ -1,6 +1,6 @@
 {
   "name": "@datage/form-material",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "form fields done in material-ui",
   "author": "Philip Lehmann <philiplehmann@gmail.com>",
   "homepage": "https://philiplehmann.ch",
