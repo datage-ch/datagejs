@@ -8,8 +8,6 @@ export const Input: typeof TextField = (props) => {
   return (
     <TextField
       ref={inputRef}
-      variant="outlined"
-      margin="normal"
       error={!!(showErrors && !valid && errorMessage)}
       helperText={showErrors && !valid && errorMessage}
       fullWidth

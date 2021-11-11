@@ -20,8 +20,6 @@ export const Select: FC<SelectProps> = (props) => {
         SelectProps={{
           native: true,
         }}
-        variant="outlined"
-        margin="normal"
         error={!!(showErrors && !valid)}
         fullWidth
         {...selectProps}
