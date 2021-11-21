@@ -1,3 +1,0 @@
-# `@datage/model`
-
-## Usage
