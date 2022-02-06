@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { TextField } from '@material-ui/core'
+import { TextField } from '@mui/material'
 import { useInputValidation } from '@datage/form-validation'
 
 export const Input: typeof TextField = (props) => {
