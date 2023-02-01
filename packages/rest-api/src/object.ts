@@ -33,11 +33,11 @@ export const objectKeysToSnakeCase = <T>(object: T) => {
   return mapObjectKeys(object, toSnakeCase)
 }
 
-export const getIn = <OutputType, InputType extends Record<string, any>>(
+export const getIn = <OutputType extends Record<string, any>, InputType extends Record<string, any>>(
   object: InputType,
   path: Array<string | number>
 ): OutputType => {
-  if (path.length === 0) return object as OutputType
+  if (path.length === 0) return object as unknown as OutputType
   return path.reduce<Record<string, any>>((result, entry) => {
     if (result == undefined) return undefined
     if (Array.isArray(result) && String(Number(entry)) === entry) {

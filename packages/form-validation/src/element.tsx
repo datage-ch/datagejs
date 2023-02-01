@@ -1,8 +1,8 @@
-import { useEffect, useState, useCallback, useContext, useRef, MutableRefObject } from 'react'
+import { useEffect, useState, useCallback, useContext, useRef, MutableRefObject, InvalidEvent } from 'react'
 import { ValidationContext } from './form'
 
-const usePrevious = (value: any) => {
-  const ref = useRef<any>()
+const usePrevious = <T extends any>(value: T): T => {
+  const ref = useRef<T>()
   useEffect(() => {
     ref.current = value
   }, [value])
@@ -22,9 +22,9 @@ export const useInputValidation = (
   const [valid, setValid] = useState(true)
   const { errors, setErrors, showErrors } = useContext(ValidationContext)
   const eventListener = useCallback(
-    (event) => {
+    (event: InvalidEvent<HTMLInputElement>) => {
       event.preventDefault()
-      setValid(event.target.validity.valid)
+      setValid(event.currentTarget.validity.valid)
       const errorMessage = inputRef?.current?.dataset?.errorMessage
       if (errorMessage && setErrors) {
         setErrors((errors) => {
@@ -39,17 +39,17 @@ export const useInputValidation = (
     [inputRef.current]
   )
   const previousRef = usePrevious(inputRef.current) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
-  const previousEventListener = usePrevious(eventListener) as typeof eventListener
+  const previousEventListener = usePrevious(eventListener)
   useEffect(() => {
     if (previousRef && previousEventListener && eventListener !== previousEventListener) {
-      previousRef.removeEventListener('invalid', previousEventListener)
+      previousRef.removeEventListener('invalid', previousEventListener as unknown as EventListener)
     }
     if (inputRef.current) {
-      inputRef.current.addEventListener('invalid', eventListener)
+      inputRef.current.addEventListener('invalid', eventListener as unknown as EventListener)
     }
     return () => {
       if (inputRef.current) {
-        inputRef.current.removeEventListener('invalid', eventListener)
+        inputRef.current.removeEventListener('invalid', eventListener as unknown as EventListener)
       }
     }
   }, [inputRef.current])
