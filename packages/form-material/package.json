@@ -1,6 +1,6 @@
 {
   "name": "@datage/form-material",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "form fields done in material-ui",
   "author": "Philip Lehmann <philiplehmann@gmail.com>",
   "homepage": "https://philiplehmann.ch",
@@ -22,7 +22,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@datage/form-validation": "^0.0.3",
+    "@datage/form-validation": "^0.0.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.7",
