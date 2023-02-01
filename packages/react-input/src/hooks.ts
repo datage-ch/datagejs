@@ -46,7 +46,7 @@ const staticOptions = Object.freeze({
   getIn,
 })
 
-export const useInputProps = <T>(
+export const useInputProps = <T extends Record<string, unknown> | Record<string, unknown>[]>(
   data: T,
   updateData: Dispatch<SetStateAction<T>>,
   globalOptions?: InputPropsGlobalOptionType

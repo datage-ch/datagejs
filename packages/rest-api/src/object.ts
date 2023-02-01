@@ -1,12 +1,10 @@
 import { toCamelCase, toSnakeCase } from './string'
 
-export const isObject = (object: any): boolean => {
+export const isObject = (object: unknown): object is Object => {
   return !!object && object.constructor === Object && object instanceof Object
 }
 
 type ConverterType = (key: string) => string
-type MapObjectKeysType<T> = (object: T, converter: ConverterType) => T
-type MapObjectKeysFNType<T> = (object: T) => T
 
 export const mapObjectKeys = <T>(object: T, converter: ConverterType): T => {
   if (Array.isArray(object)) {
@@ -34,8 +32,8 @@ export const objectKeysToSnakeCase = <T>(object: T) => {
 }
 
 export const getIn = <
-  OutputType extends Record<string, any> | Record<string, any>[] | undefined,
-  InputType extends Record<string, any> | Record<string, any>[] | undefined
+  OutputType extends Record<string, unknown> | Record<string, unknown>[] | undefined,
+  InputType extends Record<string, unknown> | Record<string, unknown>[] | undefined
 >(
   object: InputType,
   path: Array<string | number>
@@ -50,18 +48,21 @@ export const getIn = <
   }, object) as OutputType
 }
 
-const processChild = (field: string | number, fetchedPath: any, value: any) => {
-  let child
+const processChild = (field: string | number, fetchedPath: unknown, value: unknown) => {
   if (typeof field === 'number' && (Array.isArray(fetchedPath) || fetchedPath == undefined)) {
-    child = Array.from(fetchedPath || [])
+    const child = Array.from(Array.isArray(fetchedPath) ? fetchedPath : [])
     child[field] = value
-  } else {
-    child = Object.freeze({ ...(fetchedPath || {}), [field]: value })
+    return child
   }
+  const child = Object.freeze({ ...(isObject(fetchedPath) ? fetchedPath : {}), [field]: value })
   return child
 }
 
-export const setIn = <T extends Record<string, any>>(object: T, path: Array<string | number>, value: any): T => {
+export const setIn = <T extends Record<string, unknown> | Record<string, unknown>>(
+  object: T,
+  path: Array<string | number>,
+  value: unknown
+): T => {
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
 
