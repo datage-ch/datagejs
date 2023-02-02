@@ -31,9 +31,11 @@ export const objectKeysToSnakeCase = <T>(object: T) => {
   return mapObjectKeys(object, toSnakeCase)
 }
 
+type ObjectType = { [key: string]: unknown }
+
 export const getIn = <
-  OutputType extends Record<string, unknown> | Record<string, unknown>[] | undefined,
-  InputType extends Record<string, unknown> | Record<string, unknown>[] | undefined
+  OutputType extends Object | Object[] | undefined,
+  InputType extends Object | Object[] | undefined
 >(
   object: InputType,
   path: Array<string | number>
@@ -58,11 +60,7 @@ const processChild = (field: string | number, fetchedPath: unknown, value: unkno
   return child
 }
 
-export const setIn = <T extends Record<string, unknown> | Record<string, unknown>>(
-  object: T,
-  path: Array<string | number>,
-  value: unknown
-): T => {
+export const setIn = <T extends Object | Object[]>(object: T, path: Array<string | number>, value: unknown): T => {
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
 

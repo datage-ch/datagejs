@@ -9,6 +9,16 @@ describe('rest-api', () => {
         expect(result).toEqual({ a: 2, b: 2 })
       })
 
+      test('assign value to class', () => {
+        class Test {
+          public a: number = 1
+          public b: number = 2
+        }
+        const obj = new Test()
+        const result = setIn(obj, ['a'], 2)
+        expect(result).toEqual({ a: 2, b: 2 })
+      })
+
       test('assign value to subobject', () => {
         const obj = { a: 1, b: { a: 1, b: 2 } }
         const result = setIn(obj, ['b', 'b'], 5)
@@ -119,6 +129,28 @@ describe('rest-api', () => {
         expect(result).toEqual({
           x: [{ a: 1, b: 2 }, { a: 1, b: 2, c: 3, d: 4 }, { a: 1, b: 2 }, { g: 10 }, { a: 1, b: 2 }],
         })
+      })
+    })
+
+    describe('gitIn', () => {
+      test('check fetching classes from array', () => {
+        class Test {
+          public a: number = 1
+          public b: number = 2
+        }
+        const obj = new Test()
+        const result = getIn<Test, Test[]>([obj, obj, obj], [1])
+        expect(result).toEqual(obj)
+      })
+
+      test('check fetching classes from object', () => {
+        class Test {
+          public a: number = 1
+          public b: number = 2
+        }
+        const obj = new Test()
+        const result = getIn<Test, { test: Test }>({ test: obj }, ['test'])
+        expect(result).toEqual(obj)
       })
     })
 
