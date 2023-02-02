@@ -46,9 +46,9 @@ const staticOptions = Object.freeze({
   getIn,
 })
 
-export const useInputProps = <T extends object | object[] | undefined>(
-  data: T,
-  updateData: Dispatch<SetStateAction<T>>,
+export const useInputProps = <TData extends object | object[]>(
+  data: TData | undefined,
+  updateData: Dispatch<SetStateAction<TData | undefined>>,
   globalOptions?: InputPropsGlobalOptionType
 ): InputPropsType => {
   return useCallback(
