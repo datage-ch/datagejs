@@ -1,41 +1,43 @@
 import { toCamelCase, toSnakeCase } from './string'
 
-export const isObject = (object: unknown): object is Object => {
+export const isObject = <Output extends object>(object: unknown): object is Output => {
   return !!object && object.constructor === Object && object instanceof Object
 }
 
 type ConverterType = (key: string) => string
 
-export const mapObjectKeys = <T>(object: T, converter: ConverterType): T => {
+export const mapObjectKeys = <Input extends object | object[], Output extends object | object[]>(
+  object: Input,
+  converter: ConverterType
+): Output => {
   if (Array.isArray(object)) {
     return object.map((entry) => {
       return mapObjectKeys(entry, converter)
-    }) as any as T
-  } else if (isObject(object)) {
-    const asObject = object as Record<string, any>
-    return Object.keys(asObject).reduce<Record<string, any>>((newObject, key: string) => {
+    }) as unknown as Output
+  } else if (isObject<Record<string, unknown>>(object)) {
+    return Object.keys(object).reduce<Record<string, unknown>>((newObject, key: string) => {
       const newKey = converter(key)
-      newObject[newKey] = mapObjectKeys(asObject[key] as any, converter)
+      newObject[newKey] = mapObjectKeys(object[key] as object | object[], converter)
       return newObject
-    }, {}) as T
+    }, {}) as unknown as Output
   } else {
-    return object
+    return object as unknown as Output
   }
 }
 
-export const objectKeysToCamelCase = <T>(object: T) => {
+export const objectKeysToCamelCase = <T extends object | object[]>(object: T) => {
   return mapObjectKeys(object, toCamelCase)
 }
 
-export const objectKeysToSnakeCase = <T>(object: T) => {
+export const objectKeysToSnakeCase = <T extends object | object[]>(object: T) => {
   return mapObjectKeys(object, toSnakeCase)
 }
 
 type ObjectType = { [key: string]: unknown }
 
 export const getIn = <
-  OutputType extends Object | Object[] | undefined,
-  InputType extends Object | Object[] | undefined
+  OutputType extends object | object[] | undefined,
+  InputType extends object | object[] | undefined
 >(
   object: InputType,
   path: Array<string | number>
@@ -60,7 +62,11 @@ const processChild = (field: string | number, fetchedPath: unknown, value: unkno
   return child
 }
 
-export const setIn = <T extends Object | Object[]>(object: T, path: Array<string | number>, value: unknown): T => {
+export const setIn = <T extends object | object[] | undefined>(
+  object: T,
+  path: Array<string | number>,
+  value: unknown
+): T => {
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
 
