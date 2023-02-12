@@ -1,5 +1,5 @@
 import React, { useRef, ComponentProps, ReactNode, FC } from 'react'
-import { TextField } from '@mui/material'
+import TextField from '@mui/material/TextField'
 import { useInputValidation } from '@datage/form-validation'
 
 export type SelectProps = ComponentProps<typeof TextField> & {
