@@ -6,10 +6,7 @@ export const isObject = <Output extends object>(object: unknown): object is Outp
 
 type ConverterType = (key: string) => string
 
-export const mapObjectKeys = <Input extends object | object[], Output extends object | object[]>(
-  object: Input,
-  converter: ConverterType
-): Output => {
+export const mapObjectKeys = <Input, Output>(object: Input, converter: ConverterType): Output => {
   if (Array.isArray(object)) {
     return object.map((entry) => {
       return mapObjectKeys(entry, converter)
@@ -25,23 +22,15 @@ export const mapObjectKeys = <Input extends object | object[], Output extends ob
   }
 }
 
-export const objectKeysToCamelCase = <T extends object | object[]>(object: T) => {
+export const objectKeysToCamelCase = <T>(object: T) => {
   return mapObjectKeys(object, toCamelCase)
 }
 
-export const objectKeysToSnakeCase = <T extends object | object[]>(object: T) => {
+export const objectKeysToSnakeCase = <T>(object: T) => {
   return mapObjectKeys(object, toSnakeCase)
 }
 
-type ObjectType = { [key: string]: unknown }
-
-export const getIn = <
-  OutputType extends object | object[] | undefined,
-  InputType extends object | object[] | undefined
->(
-  object: InputType,
-  path: Array<string | number>
-): OutputType => {
+export const getIn = <OutputType, InputType>(object: InputType, path: Array<string | number>): OutputType => {
   if (path.length === 0) return object as unknown as OutputType
   return path.reduce<Record<string, any>>((result, entry) => {
     if (result == undefined) return undefined
@@ -62,17 +51,13 @@ const processChild = (field: string | number, fetchedPath: unknown, value: unkno
   return child
 }
 
-export const setIn = <T extends object | object[] | undefined>(
-  object: T,
-  path: Array<string | number>,
-  value: unknown
-): T => {
+export const setIn = <T>(object: T, path: Array<string | number>, value: unknown): T => {
   if (path.length === 0) return object
   if (path.length === 1) return { ...object, [path[0]]: value }
 
   const pathCopy = Array.from(path)
   let field = pathCopy.pop()
-  let fetchedPath = getIn(object, pathCopy) as any
+  let fetchedPath = getIn(object, pathCopy)
   let child
 
   child = processChild(field, fetchedPath, value)

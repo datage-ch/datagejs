@@ -46,9 +46,9 @@ const staticOptions = Object.freeze({
   getIn,
 })
 
-export const useInputProps = <TData extends object | object[]>(
-  data: TData | undefined,
-  updateData: Dispatch<SetStateAction<TData | undefined>>,
+export const useInputProps = <TData>(
+  data: TData,
+  updateData: Dispatch<SetStateAction<TData>>,
   globalOptions?: InputPropsGlobalOptionType
 ): InputPropsType => {
   return useCallback(
@@ -68,14 +68,13 @@ export const useInputProps = <TData extends object | object[]>(
         let newValue: boolean | string | number | File | File[] | null = null
         if (event.target instanceof HTMLInputElement) {
           if (event.target.type === 'checkbox') {
-            const input = event.target
             newValue = event.target.checked
           } else if (event.target.type === 'number') {
             newValue = Number(event.target.value)
           } else if (event.target.type === 'file') {
             if (event.target.multiple) {
               const files: File[] = []
-              for (var i = 0; i < event.target.files.length; i++) {
+              for (let i = 0; i < event.target.files.length; i++) {
                 files.push(event.target.files.item(i))
               }
               newValue = files
